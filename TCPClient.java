@@ -5,13 +5,13 @@ import java.util.*;
 public class TCPClient {
 	public static void main(String[] args) throws Exception {
 		//pegar nome do arquivo
-		Scanner tc = new Scanner(System.in);
+		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Digite o nome do arquivo:");
-		String fName = tc.nextLine();
+		String fileName = keyboard.nextLine();
 
 		//abrir arquivo
-		File f = new File(fName);
-		FileInputStream in = new FileInputStream(f);
+		File file = new File(fileName);
+		FileInputStream fileReader = new FileInputStream(file);
 
 		//criar socket do cliente
 		Socket clientSocket = new Socket("localhost", 1971);
@@ -20,13 +20,13 @@ public class TCPClient {
 		DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
 		//enviar nome do arquivo para o server
-		out.writeBytes(f.getName()+"\n");
+		out.writeBytes(fileName+"\n");
 
 		//mandar texto para o server
 		//ler arquivo todo char por char
-		for (int c = in.read(); c != -1; c = in.read() ) {
+		for (int i = fileReader.read(); i != -1; i = fileReader.read() ) {
 			//enviar o char 
-			out.write(c);
+			out.write(i);
 		}
 		System.out.println("Arquivo enviado");
 	}
