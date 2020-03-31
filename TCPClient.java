@@ -28,6 +28,7 @@ public class TCPClient {
 			//enviar o char 
 			out.write(i);
 		}
+		clientSocket.close();
 		System.out.println("Arquivo enviado");
 	}
 }

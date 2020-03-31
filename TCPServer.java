@@ -11,7 +11,8 @@ public class TCPServer {
 
             //ler dados do cliente
             InputStream in = clientSocket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            InputStreamReader isr = new InputStreamReader(in);
+            BufferedReader reader = new BufferedReader(isr);
             
 
             //pegar nome do arquivo
@@ -19,14 +20,16 @@ public class TCPServer {
 
             //adicionar out para ficar mais entendivel
             File file = new File("out_"+fName);
-            FileOutputStream fileWritter = new FileOutputStream(file);
+            FileOutputStream out = new FileOutputStream(file);
            
             //ler texto char por char
-            for (int i = in.read(); i != -1; i = in.read() ) {
+            for (int c = in.read(); c != -1; c = in.read() ) {
                 //adicionar o char no arquivo
-                fileWritter.write(i);
+                out.write(c);
             }
-
+            clientSocket.close();
             System.out.println("Arquivo recebido");
     }
 }
+
+
